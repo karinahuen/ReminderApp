@@ -1,0 +1,80 @@
+﻿@model IEnumerable<ReminderApp.Models.Reminder>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <h1 class="display-4">My Reminders</h1>
+        <p>Here is your personal list.</p>
+
+        <div class="d-flex justify-content-end mb-3">
+            <a asp-controller="Home" asp-action="Create" class="btn btn-primary">
+                + Add New Reminder
+            </a>
+        </div>
+
+        @if (Model.Any())
+        {
+            <table class="table table-striped table-hover text-start">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Tag</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>@item.Description</td>
+                            <td>
+                                @if (item.Platform == "Website")
+                                {
+                                    <span class="badge bg-info text-dark">Website</span>
+                                }
+                                else if (item.Platform == "Mobile")
+                                {
+                                    <span class="badge bg-success">Mobile</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@item.Platform</span>
+                                }
+                            </td>
+                            <td>
+                                <a asp-controller="Home" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                                <a asp-controller="Home" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                You have no reminders yet. Click "Add New Reminder" to start!
+            </div>
+        }
+    }
+    else
+    {
+        <h1 class="display-4">Welcome</h1>
+        <p>Please login to view and manage your reminders.</p>
+        
+        <div class="mt-4">
+            <a class="btn btn-primary btn-lg" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="btn btn-secondary btn-lg" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </div>
+    }
+</div>

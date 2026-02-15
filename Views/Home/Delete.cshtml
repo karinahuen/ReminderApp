@@ -1,0 +1,24 @@
+@model ReminderApp.Models.Reminder
+
+@{
+    ViewData["Title"] = "Delete Reminder";
+}
+
+<div class="container mt-4">
+    <h2 class="text-danger">Delete Reminder?</h2>
+    <p>Are you sure you want to delete this record? This action cannot be undone.</p>
+    
+    <div class="card border-danger mb-4">
+        <div class="card-body">
+            <h5>@Model.Title</h5>
+            <p>@Model.Description</p>
+            <span class="badge bg-secondary">@Model.Platform</span>
+        </div>
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Yes, Delete Forever</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
