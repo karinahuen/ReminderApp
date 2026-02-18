@@ -20,3 +20,5 @@ This application allows users to create, manage, and track reminders in a stream
 * **Backend:** Node.js, C#, SQLite (or specify your framework)
 * **Hosting:** Render
 * **Deployment:** GitHub Continuous Integration
+
+<img width="1072" height="746" alt="Image" src="https://github.com/user-attachments/assets/479fad2b-0453-42fb-9de5-9365558de671" />
